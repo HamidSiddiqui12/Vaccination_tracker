@@ -3,8 +3,8 @@
 using namespace std;
 
 int password = 1221;
-int size, count = 2, city = 1;
-string user_name[50], city_name[50], vaccine_name[50];
+int size, count = 2;
+string user_name[50], vaccine_name[50];
 int normal_year[13] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 int leap_year[13] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 int date[50], month[50], year[50], number_of_vaccination[50];
@@ -111,6 +111,8 @@ int remaning_dose(int j, int date_vacc, int month_vacc, int year_vacc)
             year_of_vaccination2[j] = year_vacc;
         }
     }
+
+    cout<<"\nYou can take the vaccine within 1 week of allocated date\n";
 }
 
 void vaccination_details_display_by_phone_number()
@@ -121,7 +123,7 @@ void vaccination_details_display_by_phone_number()
     cout << "Enter your phone number\n";
     cin >> check_phone_number;
 
-    for (int i = 0; i < count; j++)
+    for (int i = 0; i < count; i++)
     {
         if (check_phone_number == phone_number[i])
         {
@@ -143,7 +145,7 @@ void vaccination_details_display_by_phone_number()
         cout << "Enter your phone number\n";
         cin >> check_phone_number;
 
-        for (int i = 0; i < count; j++)
+        for (int i = 0; i < count; i++)
         {
             if (check_phone_number == phone_number[i])
             {
@@ -156,7 +158,7 @@ void vaccination_details_display_by_phone_number()
                 cin>>year_of_vaccination2[i];           
             }
         }
-        
+
     }
     
 }
@@ -207,8 +209,15 @@ void vaccination_details()
             cin >> aadhaar_number[i];
             cout << "Enter the name of vaccine you have taken (Note: Only For Co-Vaccine) :\n";
             cin >> vaccine_name[i];
+
             cout << "Enter the number of vaccine taken :\n";
             cin >> number_of_vaccination[i];
+            if (number_of_vaccination[i] == 0)
+            {
+                date_of_vaccination1[i] = 20;
+                month_of_vaccination1[i] = 2;
+                year_of_vaccination1[i] = 2021;   
+            }
 
             if (number_of_vaccination[i] == 2)
             {
@@ -340,8 +349,15 @@ void vaccination_details()
             cin >> phone_number[i];
             cout << "Enter your \"Aadhaar Number\" :\n";
             cin >> aadhaar_number[i];
+
             cout << "Enter the number of vaccine taken :\n";
             cin >> number_of_vaccination[i];
+            if (number_of_vaccination[i] == 0)
+            {
+                date_of_vaccination1[i] = 20;
+                month_of_vaccination1[i] = 2;
+                year_of_vaccination1[i] = 2021;   
+            }
 
             if (number_of_vaccination[i] == 2)
             {
@@ -498,19 +514,21 @@ void vaccination_details_display()
     }
     else
     {
-
         cout << "Error!... Please Retry\n";
     }
-}
 
-void vaccination_center()
-{
+    int choice;
+    cout<<"\nDo you want to enter the second vaccine details that if not present here\n";
+    cout<<"Enter \"1\" if YES or \"0\" for NO\n";
+    cin>>choice;
 
-    cout << "\nEnter the city name in which your living : ";
-    cin >> city_name[city];
-    city++;
-
-    cout << "\n----- You can take the vaccine dose in your nearest government dispensery and hospital center -----\n\n";
+    if (choice == 1)
+    {
+        vaccination_details_display_by_phone_number();
+    }
+    else {
+        cout<<"\nStay Safe, Stay Healthy\n";
+    }
 }
 
 int main()
@@ -521,9 +539,8 @@ int main()
     {
 
         cout << "Enter \"1\" if you want to enter the details of your vaccination\n";
-        cout << "Enter \"2\" if you want to know the nearest vaccination center\n";
-        cout << "Enter \"3\" if you want to know the details of added vaccinated people\n";
-        cout << "Enter \"4\" to exit\n";
+        cout << "Enter \"2\" if you want to know the details of added vaccinated people\n";
+        cout << "Enter \"3\" to exit\n";
         cin >> choice;
 
         switch (choice)
@@ -532,11 +549,8 @@ int main()
         case 1:
             vaccination_details();
             break;
-        case 2:
-            vaccination_center();
-            break;
 
-        case 3:
+        case 2:
             vaccination_details_display();
             break;
 
@@ -545,7 +559,7 @@ int main()
             break;
         }
 
-    } while (choice != 4);
+    } while (choice != 3);
 
     cout << "\n\n------ \"Precaution\" is better than \"cure\" ------\n";
     cout << "------ Stay healthy Stay Safe -----\n";
